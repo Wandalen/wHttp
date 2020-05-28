@@ -2,10 +2,13 @@ format: outwillfile-2.0
 root:
   - wHttp.out
 consistency:
-  ../.ex.will.yml: &ref_0
+  wHttp.out.will.yml: &ref_0
+    hash: ee15b6988213650adfae6ffc26252df7
+    size: 38264
+  ../.ex.will.yml: &ref_1
     hash: d9c1c3dd9003dcb72b8f6c36bfe66120
     size: 1680
-  ../.im.will.yml: &ref_1
+  ../.im.will.yml: &ref_2
     hash: 376a102666ccdda2283a5df1a63d81c7
     size: 4668
 module:
@@ -16,19 +19,19 @@ module:
       description: Collection of tools to make HTTP requests.
       enabled: 1
       version: 0.4.0
-      interpreters: &ref_2
+      interpreters:
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
+      keywords:
         - tools
         - wTools
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: &ref_4
+      contributors:
         - Kostiantyn Wandalen <wanalen@01.school>
       npm.name: whttp
-      npm.scripts: &ref_5
+      npm.scripts:
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -696,6 +699,24 @@ module:
           content: prime
         inherit:
           - files.transpile
+      exported.proto.export:
+        opts:
+          filePath: 'reflector::exported.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          filePath: 'reflector::exported.files.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
     build:
       proto.export:
         steps:
@@ -784,8 +805,9 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      wHttp.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
   ../:
     about:
       name: wHttp
@@ -793,13 +815,21 @@ module:
       description: Collection of tools to make HTTP requests.
       enabled: 1
       version: 0.4.0
-      interpreters: *ref_2
-      keywords: *ref_3
+      interpreters:
+        - njs >= 8.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - tools
+        - wTools
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: *ref_4
+      contributors:
+        - Kostiantyn Wandalen <wanalen@01.school>
       npm.name: whttp
-      npm.scripts: *ref_5
+      npm.scripts:
+        test: wtest .run proto/**
+        docgen: wdocgen .build proto
     path:
       module.willfiles:
         criterion:
@@ -1468,3 +1498,6 @@ module:
       ../.im.will.yml:
         hash: 376a102666ccdda2283a5df1a63d81c7
         size: 4668
+      wHttp.out.will.yml:
+        hash: ee15b6988213650adfae6ffc26252df7
+        size: 38264
