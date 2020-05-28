@@ -12,9 +12,10 @@ let Self = _.http = _.http || Object.create( null );
 
 function retrieve( o )
 {
-  const started = [];
-  const finished = [];
-  const ready = new _.Consequence().take( null );
+  let ops = [];
+  let ready = new _.Consequence().take( null );
+  let opened = 0;
+  let closed = 0;
 
   if( !_.mapIs( o ) )
   o = { uri : o }
@@ -78,13 +79,17 @@ function retrieve( o )
 
   function _request( op )
   {
+
     if( !op.ready )
     op.ready = new _.Consequence();
+
+    if( op.attempt === 0 )
+    opened += 1;
 
     if( op.attempt >= o.attemptLimit )
     throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
 
-    started[ op.index ] = op;
+    ops[ op.index ] = op;
     if( o.verbosity >= 3 )
     console.log( ` . Attempt ${op.attempt} to retrieve ${op.index} ${op.uri}..` );
 
@@ -115,15 +120,15 @@ function retrieve( o )
 
   function handleEnd( op )
   {
-    finished.push( op );
+    closed += 1;
     if( o.verbosity >= 3 )
-    console.log( ` + Retrieved ${op.index} ${finished.length} / ${started.length} ${op.uri}.` );
+    console.log( ` + Retrieved ${op.index} ${closed} / ${opened} ${op.uri}.` );
     op.ready.take( op );
   }
 
 }
 
-retrieve.defaults =
+retrieve.defaults = /* qqq : cover */
 {
   uri : null,
   verbosity : 0,
@@ -136,7 +141,7 @@ retrieve.defaults =
   responseTimeOut : null,
   readTimeOut : null,
   individualTimeOut : 10000,
-  concurrentLimit : 256,
+  concurrentLimit : 256, /* qqq : implement and cover option concurrentLimit */
 }
 
 // --
