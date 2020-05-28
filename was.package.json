@@ -2,13 +2,13 @@
 {
   "name" : "whttp",
   "version" : "0.3.0",
-  "description" : "___",
+  "description" : "Collection of tools to make HTTP requests.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
-  "main" : "proto/dwtools/___",
+  "main" : "proto/dwtools/amid/l1/http/Include.s",
   "files" :
   [
-    "proto/dwtools/___",
+    "proto/dwtools/amid/l1/http",
     "proto/dwtools/Tools.s"
   ],
   "scripts" :
@@ -27,7 +27,8 @@
   },
   "dependencies" :
   {
-    "wTools" : ""
+    "wTools" : "",
+    "needle" : "2.5.0"
   },
   "devDependencies" :
   {
