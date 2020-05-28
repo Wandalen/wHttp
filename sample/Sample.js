@@ -5,8 +5,8 @@ let _ = require( 'whttp' );
 
 let got = _.http.retrieve
 ({
-  'google.com',
+  uri : 'https://www.google.com/',
   sync : 1,
-  attemptLimit : 3,
+  attemptLimit : 2,
 });
-console.log( got );
+console.log( got.response.body.substring( 0, 60 ) + '...' );

@@ -80,9 +80,8 @@ function retrieve( o )
   {
     if( !op.ready )
     op.ready = new _.Consequence();
-    let time = _.time.now();
 
-    if( o.attempt >= o.attemptLimit )
+    if( op.attempt >= o.attemptLimit )
     throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
 
     started[ op.index ] = op;
