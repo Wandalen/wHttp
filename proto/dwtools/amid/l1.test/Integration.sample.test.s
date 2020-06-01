@@ -104,7 +104,7 @@ function samples( test )
 
 function eslint( test )
 {
-  let rootPath = path.join( __dirname, '..' );
+  let rootPath = path.join( __dirname, '../../../..' );
   let eslint = process.platform === 'win32' ? 'node_modules/eslint/bin/eslint' : 'node_modules/.bin/eslint';
   eslint = path.join( rootPath, eslint );
   let sampleDir = path.join( rootPath, 'sample' );
@@ -123,16 +123,16 @@ function eslint( test )
 
   /* */
 
-  ready.then( () =>
-  {
-    test.case = 'eslint proto';
-    return start( 'proto/**' );
-  } )
-  .then( ( got ) =>
-  {
-    test.identical( got.exitCode, 0 );
-    return null;
-  } )
+  // ready.then( () =>
+  // {
+  //   test.case = 'eslint proto';
+  //   return start( 'proto/**' );
+  // } )
+  // .then( ( got ) =>
+  // {
+  //   test.identical( got.exitCode, 0 );
+  //   return null;
+  // } )
 
   /* */
 

@@ -1,20 +1,46 @@
 {
-  "name" : "whttp",
-  "version" : "0.3.4",
-  "description" : "Collection of tools to make HTTP requests.",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "contributors" :
-  [
-    { "name" : "Kostiantyn Wandalen", "email" : "wanalen@01.school" },
-    { "name" : "Artem Bohush", "email" : "art.bohush@gmail.com" }
+  "name": "whttp",
+  "version": "0.3.4",
+  "description": "Collection of tools to make HTTP requests.",
+  "author": "Kostiantyn Wandalen <wanalen@01.school>",
+  "contributors": [
+    {
+      "name": "Kostiantyn Wandalen",
+      "email": "wanalen@01.school"
+    },
+    {
+      "name": "Artem Bohush",
+      "email": "art.bohush@gmail.com"
+    }
   ],
-  "license" : "MIT",
-  "main" : "proto/dwtools/amid/l1/http/Include.s",
-  "files" : [ "proto/dwtools/amid/l1/http", "proto/dwtools/Tools.s" ],
-  "scripts" : { "test" : "wtest .run proto", "docgen" : "wdocgen .build proto" },
-  "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
-  "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
-  "dependencies" : { "needle" : "2.5.0", "wTools" : "alpha", "wConsequence" : "alpha" },
-  "devDependencies" : { "whttp" : "file:.", "wTesting" : "alpha" },
-  "keywords" : [ "wTools" ]
+  "license": "MIT",
+  "main": "proto/dwtools/amid/l1/http/Include.s",
+  "files": [
+    "proto/dwtools/amid/l1/http",
+    "proto/dwtools/Tools.s"
+  ],
+  "scripts": {
+    "test": "wtest .run proto",
+    "docgen": "wdocgen .build proto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wHttp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wandalen/wHttp/issues"
+  },
+  "dependencies": {
+    "needle": "2.5.0",
+    "wTools": "alpha",
+    "wConsequence": "alpha"
+  },
+  "devDependencies": {
+    "eslint": "7.1.0",
+    "wTesting": "alpha",
+    "whttp": "file:."
+  },
+  "keywords": [
+    "wTools"
+  ]
 }
