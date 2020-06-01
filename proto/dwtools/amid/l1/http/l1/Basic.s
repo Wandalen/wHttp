@@ -1,4 +1,5 @@
-( function _Basic_s_( ) {
+( function _Basic_s_()
+{
 
 'use strict';
 
@@ -46,8 +47,35 @@ function retrieve( o )
   _.assert( o.individualTimeOut >= 0 );
   _.assert( o.concurrentLimit >= 1 );
 
+  // const results = [];
+
+  // function concurrentLimitRequests( arr )
+  // {
+  //   for( let i = 0; i < arr.length; i++ )
+  //   ready.also( () => _request( { uri : arr[ i ], attempt : 0, index : i } ) );
+
+  //   if(o.uri.length)
+  // }
+
+  // ready.then( () =>
+  // {
+
+  // } )
+
+  // while( o.uri.length )
+  // {
+  //   concurrentLimitRequests( o.uri.splice( 0, o.concurrentLimit ) );
+
+  //   ready.then( ( res ) =>
+  //   {
+  //     results.push( ... res )
+
+  //     return results;
+  //   } );
+  // }
+
   for( let i = 0; i < o.uri.length; i++ )
-  ready.also( () => _request({ uri : o.uri[ i ], attempt : 0, index : i }) );
+  ready.also( () => _request( { uri : o.uri[ i ], attempt : 0, index : i } ) );
 
   ready.then( ( result ) =>
   {
@@ -111,7 +139,7 @@ function retrieve( o )
       if( o.onSuccess && !o.onSuccess( op ) )
       return retry( op );
       handleEnd( op );
-    });
+    } );
 
     return op.ready;
   }
@@ -164,4 +192,4 @@ _.mapExtend( Self, Extend );
 if( typeof module !== 'undefined' )
 module[ 'exports' ] = _global_.wTools;
 
-})();
+} )();

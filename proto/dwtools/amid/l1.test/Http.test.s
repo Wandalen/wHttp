@@ -70,7 +70,8 @@ function retrieve( test )
     uri : uris,
     sync : 1,
     attemptLimit : 3,
-    verbosity : 3
+    verbosity : 3,
+    concurrentLimit : 50
   } );
   var got = [];
   for( let i = 0; i < hooksArr.length; i++ )
@@ -81,9 +82,18 @@ function retrieve( test )
 }
 retrieve.description =
 `
-Make a GET request to the given URI
+Makes GET requests to the given URI
 `
 
+//
+
+function retrieveConcurrentLimitOption()
+{
+
+}
+retrieveConcurrentLimitOption.description = `
+Makes no more GET requests at the same time than specified in the concurrentLimit option
+`
 
 // --
 // declare
@@ -107,7 +117,8 @@ var Proto =
 
   tests :
   {
-    retrieve
+    retrieve,
+    retrieveConcurrentLimitOption
   },
 
 }
