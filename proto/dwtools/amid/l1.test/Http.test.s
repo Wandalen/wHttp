@@ -43,11 +43,46 @@ var _ = _global_.wTools;
 
 function retrieve( test )
 {
-  test.case = 'test one';
-  var got = 1;
-  var exp = 1;
+  test.case = 'single URI';
+  var got = _.http.retrieve
+  ( {
+    uri : 'https://www.google.com/',
+    sync : 1,
+    attemptLimit : 1,
+  } );
+  var exp = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
+  test.identical( got.response.body.substring( 0, 60 ) + '...', exp );
+
+  //
+
+  test.case = 'array of URI';
+  var uris = [];
+  var results = [];
+  const l = 100;
+  for( let i = 0; i < l; i++ )
+  {
+    uris.push( 'https://www.google.com/' );
+    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
+  }
+
+  var hooksArr = _.http.retrieve
+  ( {
+    uri : uris,
+    sync : 1,
+    attemptLimit : 3,
+    verbosity : 3
+  } );
+  var got = [];
+  for( let i = 0; i < hooksArr.length; i++ )
+  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+
+  var exp = results;
   test.identical( got, exp );
 }
+retrieve.description =
+`
+Make a GET request to the given URI
+`
 
 
 // --
