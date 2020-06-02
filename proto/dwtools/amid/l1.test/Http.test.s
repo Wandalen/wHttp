@@ -70,9 +70,7 @@ function retrieve( test )
   ( {
     uri : uris,
     sync : 1,
-    attemptLimit : 3,
-    verbosity : 3,
-    concurrentLimit : 50
+    attemptLimit : 3
   } );
   var got = [];
   for( let i = 0; i < hooksArr.length; i++ )
@@ -88,9 +86,32 @@ Makes GET requests to the given URI
 
 //
 
-function retrieveConcurrentLimitOption()
+function retrieveConcurrentLimitOption( test )
 {
+  test.case = 'concurrentLimit 10 time less than uris';
+  var uris = [];
+  var results = [];
+  const l = 100;
+  for( let i = 0; i < l; i++ )
+  {
+    uris.push( 'https://www.google.com/' );
+    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
+  }
 
+  var hooksArr = _.http.retrieve
+  ( {
+    uri : uris,
+    sync : 1,
+    attemptLimit : 3,
+    verbosity : 3,
+    concurrentLimit : 50
+  } );
+  var got = [];
+  for( let i = 0; i < hooksArr.length; i++ )
+  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+
+  var exp = results;
+  test.identical( got, exp );
 }
 retrieveConcurrentLimitOption.description = `
 Makes no more GET requests at the same time than specified in the concurrentLimit option
