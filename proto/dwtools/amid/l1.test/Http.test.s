@@ -1,4 +1,5 @@
-( function _Http_test_ss_( ) {
+( function _Http_test_ss_()
+{
 
 'use strict';
 
@@ -129,4 +130,4 @@ var Self = new wTestSuite( Proto );
 if( typeof module !== 'undefined' && !module.parent )
 wTester.test( Self.name );
 
-})();
+} )();

@@ -123,16 +123,16 @@ function eslint( test )
 
   /* */
 
-  // ready.then( () =>
-  // {
-  //   test.case = 'eslint proto';
-  //   return start( 'proto/**' );
-  // } )
-  // .then( ( got ) =>
-  // {
-  //   test.identical( got.exitCode, 0 );
-  //   return null;
-  // } )
+  ready.then( () =>
+  {
+    test.case = 'eslint proto';
+    return start( 'proto/**' );
+  } )
+  .then( ( got ) =>
+  {
+    test.identical( got.exitCode, 0 );
+    return null;
+  } )
 
   /* */
 
