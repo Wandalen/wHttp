@@ -26,7 +26,7 @@ function samples( test )
   let context = this;
   let ready = new _.Consequence().take( null );
 
-  let sampleDir = path.join( __dirname, '../../sample' );
+  let sampleDir = path.join( __dirname, '../sample' );
 
   let appStartNonThrowing = _.process.starter
   ( {
@@ -104,7 +104,7 @@ function samples( test )
 
 function eslint( test )
 {
-  let rootPath = path.join( __dirname, '../../../..' );
+  let rootPath = path.join( __dirname, '..' );
   let eslint = process.platform === 'win32' ? 'node_modules/eslint/bin/eslint' : 'node_modules/.bin/eslint';
   eslint = path.join( rootPath, eslint );
   let sampleDir = path.join( rootPath, 'sample' );
@@ -116,12 +116,11 @@ function eslint( test )
     execPath : eslint,
     mode : 'fork',
     currentPath : rootPath,
-    // stdio : 'ignore',
     args : [ '-c', '.eslintrc.yml', '--ext', '.js,.s,.ss', '--ignore-pattern', '*.html', '--ignore-pattern', '*.txt' ],
     throwingExitCode : 0
   } )
 
-  /* */
+  /**/
 
   ready.then( () =>
   {
@@ -134,7 +133,7 @@ function eslint( test )
     return null;
   } )
 
-  /* */
+  /**/
 
   if( fileProvider.fileExists( sampleDir ) )
   ready.then( () =>
@@ -158,10 +157,9 @@ function eslint( test )
 var Self =
 {
 
-  name : 'Http.Integration',
+  name : 'Integration',
+  routineTimeOut : 500000,
   silencing : 1,
-  enabled : 1,
-  routineTimeOut : 300000,
 
   tests :
   {
