@@ -95,7 +95,7 @@ function retrieveConcurrentLimitOption( test )
   for( let i = 0; i < l; i++ )
   {
     uris.push( 'https://www.google.com/' );
-    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
+    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' );
   }
 
   var hooksArr = _.http.retrieve
@@ -104,7 +104,7 @@ function retrieveConcurrentLimitOption( test )
     sync : 1,
     attemptLimit : 3,
     verbosity : 3,
-    concurrentLimit : 50
+    concurrentLimit : 10
   } );
   var got = [];
   for( let i = 0; i < hooksArr.length; i++ )

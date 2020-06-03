@@ -1,5 +1,5 @@
 
-# wHttp -- Experimental! [![Build Status](https://travis-ci.org/Wandalen/wHttp.svg?branch=master)](https://travis-ci.org/Wandalen/wHttp)
+# wHttp -- Experimental! [![Build Status](https://travis-ci.org/Wandalen/wHttp.svg?branch=master)](https://travis-ci.org/Wandalen/wHttp) [![Status](https://github.com/Wandalen/OverviewMath/workflows/Test/badge.svg)](https://github.com/Wandalen/OverviewMath/actions?query=workflow%3ATest)
 
 Collection of tools to make HTTP requests.
 
