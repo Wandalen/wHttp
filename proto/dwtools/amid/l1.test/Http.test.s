@@ -18,26 +18,6 @@ var _ = _global_.wTools;
 // context
 // --
 
-// function onSuiteBegin( test )
-// {
-//   let context = this;
-//   context.provider = _.fileProvider;
-//   let path = context.provider.path;
-//   context.suitePath = context.provider.path.pathDirTempOpen( path.join( __dirname, '../..'  ),'NpmTools' );
-//   context.suitePath = context.provider.pathResolveLinkFull({ filePath : context.suitePath, resolvingSoftLink : 1 });
-//   context.suitePath = context.suitePath.absolutePath;
-// }
-
-//
-
-// function onSuiteEnd( test )
-// {
-//   let context = this;
-//   let path = context.provider.path;
-//   _.assert( _.strHas( context.suitePath, 'NpmTools' ), context.suitePath );
-//   path.pathDirTempClose( context.suitePath );
-// }
-
 // --
 // tests
 // --
@@ -127,9 +107,6 @@ var Proto =
   name : 'Tools.mid.NpmTools',
   silencing : 1,
   routineTimeOut : 60000,
-
-  // onSuiteBegin,
-  // onSuiteEnd,
 
   context :
   {

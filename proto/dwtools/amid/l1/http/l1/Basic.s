@@ -15,7 +15,6 @@ function retrieve( o )
 {
   let ops = [];
   let ready = new _.Consequence().take( null );
-  // let ready = new _.Consequence();
   let opened = 0;
   let closed = 0;
 
@@ -48,24 +47,9 @@ function retrieve( o )
   _.assert( o.individualTimeOut >= 0 );
   _.assert( o.concurrentLimit >= 1 );
 
-  /* code before start */
-  // for( let i = 0; i < o.uri.length; i++ )
-  // ready.also( () => _request( { uri : o.uri[ i ], attempt : 0, index : i } ) );
-
-  // ready.then( ( result ) =>
-  // {
-  //   /* remove heading null */
-  //   result.splice( 0, 1 )
-  //   if( isSingle )
-  //   return result[ 0 ];
-  //   return result;
-  // } );
-  /* code before end */
-
-  /* concurrentLimit implementation code start */
-  let firstLimite = o.uri.splice( 0, o.concurrentLimit );
-  for( let i = 0; i < firstLimite.length; i++ )
-  ready.also( () => _request( { uri : firstLimite[ i ], attempt : 0, index : i } ) );
+  /* code before concurrentLimit implementation*/
+  for( let i = 0; i < o.uri.length; i++ )
+  ready.also( () => _request( { uri : o.uri[ i ], attempt : 0, index : i } ) );
 
   ready.then( ( result ) =>
   {
@@ -75,6 +59,21 @@ function retrieve( o )
     return result[ 0 ];
     return result;
   } );
+  /* code before concurrentLimit implementation*/
+
+  /* concurrentLimit implementation code start */
+  // let firstLimite = o.uri.splice( 0, o.concurrentLimit );
+  // for( let i = 0; i < firstLimite.length; i++ )
+  // ready.also( () => _request( { uri : firstLimite[ i ], attempt : 0, index : i } ) );
+
+  // ready.then( ( result ) =>
+  // {
+  //   /* remove heading null */
+  //   result.splice( 0, 1 )
+  //   if( isSingle )
+  //   return result[ 0 ];
+  //   return result;
+  // } );
   /* concurrentLimit implementation code end */
 
   if( o.sync )
@@ -143,10 +142,10 @@ function retrieve( o )
     if( o.verbosity >= 3 )
     console.log( ` + Retrieved ${op.index} ${closed} / ${opened} ${op.uri}.` );
 
-    // concurrentLimit code start
-    if( o.uri.length )
-    ready.also( () => _request( { uri : o.uri.splice( 0, 1 )[ 0 ], attempt : 0, index : 0 } ) );
-    // concurrentLimit code end
+    // // concurrentLimit code start
+    // if( o.uri.length )
+    // ready.also( () => _request( { uri : o.uri.splice( 0, 1 )[ 0 ], attempt : 0, index : 0 } ) );
+    // // concurrentLimit code end
 
     op.ready.take( op );
   }
