@@ -1,4 +1,5 @@
-( function _Mid_s_( ) {
+( function _Mid_s_()
+{
 
 'use strict';
 
@@ -11,4 +12,4 @@ if( typeof module !== 'undefined' )
   module[ 'exports' ] = _global_.wTools;
 }
 
-})();
+} )();
