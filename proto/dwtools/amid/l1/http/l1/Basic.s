@@ -14,7 +14,8 @@ let Self = _.http = _.http || Object.create( null );
 function retrieve( o )
 {
   let ops = [];
-  let ready = new _.Consequence().take( null );
+  // let ready = new _.Consequence().take( null );
+  let ready = new _.Consequence();
   let opened = 0;
   let closed = 0;
 
@@ -48,23 +49,8 @@ function retrieve( o )
   _.assert( o.concurrentLimit >= 1 );
 
   /* code before concurrentLimit implementation*/
-  for( let i = 0; i < o.uri.length; i++ )
-  ready.also( () => _request( { uri : o.uri[ i ], attempt : 0, index : i } ) );
-
-  ready.then( ( result ) =>
-  {
-    /* remove heading null */
-    result.splice( 0, 1 )
-    if( isSingle )
-    return result[ 0 ];
-    return result;
-  } );
-  /* code before concurrentLimit implementation*/
-
-  /* concurrentLimit implementation code start */
-  // let firstLimite = o.uri.splice( 0, o.concurrentLimit );
-  // for( let i = 0; i < firstLimite.length; i++ )
-  // ready.also( () => _request( { uri : firstLimite[ i ], attempt : 0, index : i } ) );
+  // for( let i = 0; i < o.uri.length; i++ )
+  // ready.also( () => _request( { uri : o.uri[ i ], attempt : 0, index : i } ) );
 
   // ready.then( ( result ) =>
   // {
@@ -74,6 +60,16 @@ function retrieve( o )
   //   return result[ 0 ];
   //   return result;
   // } );
+  /* code before concurrentLimit implementation*/
+
+  /* concurrentLimit implementation code start */
+  let counter = 0;
+  let totalRequests = o.uri.length;
+  let answers = [];
+  let firstLimite = o.uri.slice( 0, o.concurrentLimit );
+  let i;
+  for( i = 0; i < firstLimite.length; i++ )
+  _request( { uri : firstLimite[ i ], attempt : 0, index : i } );
   /* concurrentLimit implementation code end */
 
   if( o.sync )
@@ -98,14 +94,17 @@ function retrieve( o )
   function _request( op )
   {
 
-    if( !op.ready )
-    op.ready = new _.Consequence();
+    // if( !op.ready )
+    // op.ready = new _.Consequence();
 
     if( op.attempt === 0 )
     opened += 1;
 
     if( op.attempt >= o.attemptLimit )
-    throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
+    {
+      ready.take( null )
+      throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
+    }
 
     ops[ op.index ] = op;
     if( o.verbosity >= 3 )
@@ -131,10 +130,18 @@ function retrieve( o )
       handleEnd( op );
     } );
 
-    return op.ready;
+    // return op.ready;
   }
 
   /* */
+
+  function returnAnswers( op )
+  {
+    counter += 1;
+    answers[ op.index ] = op;
+    if( counter === totalRequests )
+    isSingle ? ready.take( op ) : ready.take( answers )
+  }
 
   function handleEnd( op )
   {
@@ -142,12 +149,16 @@ function retrieve( o )
     if( o.verbosity >= 3 )
     console.log( ` + Retrieved ${op.index} ${closed} / ${opened} ${op.uri}.` );
 
-    // // concurrentLimit code start
-    // if( o.uri.length )
-    // ready.also( () => _request( { uri : o.uri.splice( 0, 1 )[ 0 ], attempt : 0, index : 0 } ) );
-    // // concurrentLimit code end
+    // concurrentLimit code start
+    if( i < o.uri.length )
+    {
+      _request( { uri : o.uri[ i ], attempt : 0, index : i } )
+      i += 1;
+    }
+    // concurrentLimit code end
 
-    op.ready.take( op );
+    // op.ready.take( op );
+    returnAnswers( op )
   }
 
 }
