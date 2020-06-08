@@ -151,6 +151,7 @@ module:
           export: 1
         path:
           - ../proto
+          - ../proto/Integration.test.s
           - ../proto/dwtools
           - ../proto/dwtools/Tools.s
           - ../proto/dwtools/abase
@@ -163,6 +164,8 @@ module:
           - ../proto/dwtools/amid/l1/http/include/Mid.s
           - ../proto/dwtools/amid/l1/http/l1
           - ../proto/dwtools/amid/l1/http/l1/Basic.s
+          - ../proto/dwtools/amid/l1.test
+          - ../proto/dwtools/amid/l1.test/Http.test.s
           - ../proto/dwtools/atop
     submodule:
       wTools:
