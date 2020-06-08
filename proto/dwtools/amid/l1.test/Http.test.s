@@ -36,10 +36,10 @@ function retrieve( test )
 
   //
 
-  test.case = 'array of URI';
+  test.case = 'array of identical URI';
   var uris = [];
   var results = [];
-  const l = 100;
+  var l = 100;
   for( let i = 0; i < l; i++ )
   {
     uris.push( 'https://www.google.com/' );
@@ -55,6 +55,38 @@ function retrieve( test )
   var got = [];
   for( let i = 0; i < hooksArr.length; i++ )
   got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+
+  var exp = results;
+  test.identical( got, exp );
+
+  //
+
+  test.case = 'array of different URI';
+  var uris = [];
+  var results = [];
+  var l = 50;
+  for( let i = 0; i < l; i++ )
+  {
+    uris.push( 'https://www.google.com/' );
+    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
+    uris.push( 'https://www.npmjs.com/' );
+    results.push( '<!doctype html...' )
+  }
+
+  var hooksArr = _.http.retrieve
+  ( {
+    uri : uris,
+    sync : 1,
+    attemptLimit : 3
+  } );
+  var got = [];
+  for( let i = 0; i < hooksArr.length; i++ )
+  {
+    if( i % 2 === 0 )
+    got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+    else
+    got[ i ] = hooksArr[ i ].response.body.substring( 1, 15 ) + '...';
+  }
 
   var exp = results;
   test.identical( got, exp );
@@ -83,7 +115,8 @@ function retrieveConcurrentLimitOption( test )
     uri : uris,
     sync : 1,
     attemptLimit : 3,
-    verbosity : 3
+    verbosity : 3,
+    concurrentLimit : 10
   } );
   var got = [];
   for( let i = 0; i < hooksArr.length; i++ )
