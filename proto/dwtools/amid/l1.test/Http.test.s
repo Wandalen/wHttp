@@ -116,7 +116,7 @@ function retrieveConcurrentLimitOption( test )
     sync : 1,
     attemptLimit : 3,
     verbosity : 3,
-    concurrentLimit : 10
+    concurrentLimit : 5
   } );
   var got = [];
   for( let i = 0; i < hooksArr.length; i++ )

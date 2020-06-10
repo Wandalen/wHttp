@@ -14,8 +14,7 @@ let Self = _.http = _.http || Object.create( null );
 function retrieve( o )
 {
   let ops = [];
-  // let ready = new _.Consequence().take( null );
-  let ready = new _.Consequence();
+  let ready = new _.Consequence().take( null );
   let opened = 0;
   let closed = 0;
 
@@ -48,29 +47,30 @@ function retrieve( o )
   _.assert( o.individualTimeOut >= 0 );
   _.assert( o.concurrentLimit >= 1 );
 
-  /* code before concurrentLimit implementation*/
-  // for( let i = 0; i < o.uri.length; i++ )
-  // ready.also( () => _request( { uri : o.uri[ i ], attempt : 0, index : i } ) );
+  let o2 =
+  {
+    open_timeout : o.openTimeOut,
+    response_timeout : o.responseTimeOut,
+    read_timeout : o.readTimeOut,
+  }
 
-  // ready.then( ( result ) =>
-  // {
-  //   /* remove heading null */
-  //   result.splice( 0, 1 )
-  //   if( isSingle )
-  //   return result[ 0 ];
-  //   return result;
-  // } );
-  /* code before concurrentLimit implementation*/
+  for( let i = 0; i < o.uri.length; i++ )
+  ready.also( () => addOp( { uri : o.uri[ i ], attempt : 0, index : i } ) );
 
-  /* concurrentLimit implementation code start */
-  let counter = 0;
-  let totalRequests = o.uri.length;
-  let answers = [];
-  let firstLimite = o.uri.slice( 0, o.concurrentLimit );
+  ready.then( ( result ) =>
+  {
+    /* remove heading null */
+    result.splice( 0, 1 )
+    if( isSingle )
+    return result[ 0 ];
+    return result;
+  } );
+
+  const firstBatch = ready.competitorsGet().slice( 0, o.concurrentLimit );
+
   let i;
-  for( i = 0; i < firstLimite.length; i++ )
-  _request( { uri : firstLimite[ i ], attempt : 0, index : i } );
-  /* concurrentLimit implementation code end */
+  for( i = 0; i < firstBatch.length; i++ )
+  _request( ops[ i ] );
 
   if( o.sync )
   {
@@ -82,41 +82,8 @@ function retrieve( o )
 
   /* */
 
-  function retry( op )
-  {
-    op.attempt += 1;
-    delete op.err;
-    _.time.begin( o.attemptDelay, () => _request( op ) );
-  }
-
-  /* */
-
   function _request( op )
   {
-
-    // if( !op.ready )
-    // op.ready = new _.Consequence();
-
-    if( op.attempt === 0 )
-    opened += 1;
-
-    if( op.attempt >= o.attemptLimit )
-    {
-      ready.take( null )
-      throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
-    }
-
-    ops[ op.index ] = op;
-    if( o.verbosity >= 3 )
-    console.log( ` . Attempt ${op.attempt} to retrieve ${op.index} ${op.uri}..` );
-
-    let o2 =
-    {
-      open_timeout : o.openTimeOut,
-      response_timeout : o.responseTimeOut,
-      read_timeout : o.readTimeOut,
-    }
-
     needle.get( op.uri, o2, function( err, response )
     {
       op.err = err;
@@ -129,19 +96,39 @@ function retrieve( o )
       return retry( op );
       handleEnd( op );
     } );
-
-    // return op.ready;
   }
 
   /* */
 
-  function returnAnswers( op )
+  function retry( op )
   {
-    counter += 1;
-    answers[ op.index ] = op;
-    if( counter === totalRequests )
-    isSingle ? ready.take( op ) : ready.take( answers )
+    op.attempt += 1;
+    delete op.err;
+    _.time.begin( o.attemptDelay, () => _request( op ) );
   }
+
+  /* */
+
+  function addOp( op )
+  {
+
+    if( !op.ready )
+    op.ready = new _.Consequence();
+
+    if( op.attempt === 0 )
+    opened += 1;
+
+    if( op.attempt >= o.attemptLimit )
+    throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
+
+    ops[ op.index ] = op;
+    if( o.verbosity >= 3 )
+    console.log( ` . Attempt ${op.attempt} to retrieve ${op.index} ${op.uri}..` );
+
+    return op.ready;
+  }
+
+  /* */
 
   function handleEnd( op )
   {
@@ -149,21 +136,18 @@ function retrieve( o )
     if( o.verbosity >= 3 )
     console.log( ` + Retrieved ${op.index} ${closed} / ${opened} ${op.uri}.` );
 
-    // concurrentLimit code start
     if( i < o.uri.length )
     {
-      _request( { uri : o.uri[ i ], attempt : 0, index : i } )
+      _request( ops[ i ] );
       i += 1;
     }
-    // concurrentLimit code end
 
-    // op.ready.take( op );
-    returnAnswers( op )
+    op.ready.take( op );
   }
 
 }
 
-retrieve.defaults = /* qqq : cover */
+retrieve.defaults = /* aaa Artem : done. cover */
 {
   uri : null,
   verbosity : 0,
@@ -176,7 +160,7 @@ retrieve.defaults = /* qqq : cover */
   responseTimeOut : null,
   readTimeOut : null,
   individualTimeOut : 10000,
-  concurrentLimit : 256, /* qqq : implement and cover option concurrentLimit */
+  concurrentLimit : 256, /* aaa Artem : done. implement and cover option concurrentLimit */
 }
 
 // --
