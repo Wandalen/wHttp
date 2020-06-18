@@ -100,7 +100,7 @@ Makes GET requests to the given URI
 
 function retrieveConcurrentLimitOption( test )
 {
-  test.case = 'concurrentLimit 10 time less than uris';
+  test.case = 'concurrentLimit less than uris';
   var uris = [];
   var results = [];
   const l = 100;

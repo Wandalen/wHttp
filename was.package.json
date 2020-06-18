@@ -9,7 +9,7 @@
   "scripts" : { "test" : "wtest .run proto", "docgen" : "wdocgen .build proto" },
   "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
   "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
-  "dependencies" : { "wTools" : "", "wConsequence" : "", "needle" : "2.5.0" },
+  "dependencies" : { "wTools" : "", "wConsequence" : "", "needle" : "2.5.0", "eslint": "7.1.0" },
   "devDependencies" : { "wTesting" : "", "whttp" : "file:." },
   "keywords" : [ "wTools" ]
 }

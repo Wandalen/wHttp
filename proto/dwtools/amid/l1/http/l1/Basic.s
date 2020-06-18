@@ -84,6 +84,15 @@ function retrieve( o )
 
   function _request( op )
   {
+    if( op.attempt === 0 )
+    opened += 1;
+
+    if( op.attempt >= o.attemptLimit )
+    throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
+
+    if( o.verbosity >= 3 )
+    console.log( ` . Attempt ${op.attempt} to retrieve ${op.index + 1} ${op.uri}..` );
+
     needle.get( op.uri, o2, function( err, response )
     {
       op.err = err;
@@ -111,19 +120,10 @@ function retrieve( o )
 
   function addOp( op )
   {
+    ops[ op.index ] = op;
 
     if( !op.ready )
     op.ready = new _.Consequence();
-
-    if( op.attempt === 0 )
-    opened += 1;
-
-    if( op.attempt >= o.attemptLimit )
-    throw _.err( `Failed to retrieve ${op.uri}, made ${op.attempt} attemptLimit` );
-
-    ops[ op.index ] = op;
-    if( o.verbosity >= 3 )
-    console.log( ` . Attempt ${op.attempt} to retrieve ${op.index} ${op.uri}..` );
 
     return op.ready;
   }
@@ -134,7 +134,7 @@ function retrieve( o )
   {
     closed += 1;
     if( o.verbosity >= 3 )
-    console.log( ` + Retrieved ${op.index} ${closed} / ${opened} ${op.uri}.` );
+    console.log( ` + Retrieved ${op.index + 1} ${closed} / ${opened} ${op.uri}.` );
 
     if( i < o.uri.length )
     {
