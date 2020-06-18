@@ -100,10 +100,44 @@ Makes GET requests to the given URI
 
 function retrieveConcurrentLimitOption( test )
 {
-  test.case = 'concurrentLimit less than uris';
+  test.case = 'concurrentLimit === 0';
+  var uri = 'https://www.google.com/';
+
+  test.shouldThrowErrorSync( () =>
+  {
+    _.http.retrieve
+    ( {
+      uri,
+      sync : 1,
+      attemptLimit : 3,
+      verbosity : 3,
+      concurrentLimit : 0
+    } );
+  } )
+
+  //
+
+  test.case = 'concurrentLimit < 0';
+  var uri = 'https://www.google.com/';
+
+  test.shouldThrowErrorSync( () =>
+  {
+    _.http.retrieve
+    ( {
+      uri,
+      sync : 1,
+      attemptLimit : 3,
+      verbosity : 3,
+      concurrentLimit : -5
+    } );
+  } )
+
+  //
+
+  test.case = 'concurrentLimit < uris';
   var uris = [];
   var results = [];
-  const l = 100;
+  var l = 100;
   for( let i = 0; i < l; i++ )
   {
     uris.push( 'https://www.google.com/' );
@@ -124,6 +158,34 @@ function retrieveConcurrentLimitOption( test )
 
   var exp = results;
   test.identical( got, exp );
+
+  //
+
+  test.case = 'concurrentLimit > uris';
+  var uris = [];
+  var results = [];
+  var l = 100;
+  for( let i = 0; i < l; i++ )
+  {
+    uris.push( 'https://www.google.com/' );
+    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' );
+  }
+
+  var hooksArr = _.http.retrieve
+  ( {
+    uri : uris,
+    sync : 1,
+    attemptLimit : 3,
+    verbosity : 3,
+    concurrentLimit : 150
+  } );
+  var got = [];
+  for( let i = 0; i < hooksArr.length; i++ )
+  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+
+  var exp = results;
+  test.identical( got, exp );
+
 }
 retrieveConcurrentLimitOption.description = `
 Makes no more GET requests at the same time than specified in the concurrentLimit option

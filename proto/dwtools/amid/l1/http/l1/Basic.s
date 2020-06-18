@@ -67,8 +67,8 @@ function retrieve( o )
   } );
 
   const firstBatch = ready.competitorsGet().slice( 0, o.concurrentLimit );
-
   let i;
+
   for( i = 0; i < firstBatch.length; i++ )
   _request( ops[ i ] );
 
