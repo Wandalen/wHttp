@@ -1464,6 +1464,4 @@ module:
       ../.im.will.yml:
         hash: 376a102666ccdda2283a5df1a63d81c7
         size: 4668
-      wHttp.out.will.yml:
-        hash: bcfee8ccfd1c08abedd40e99862c5a00
-        size: 37311
+      wHttp.out.will.yml: *ref_0
