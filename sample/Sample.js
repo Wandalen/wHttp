@@ -8,4 +8,5 @@ var got = _.http.retrieve
   sync : 1,
   attemptLimit : 2,
 } );
+
 console.log( got.response.body.substring( 0, 60 ) + '...' );
