@@ -66,10 +66,10 @@ function retrieve( o )
     return result;
   } );
 
-  const firstBatch = ready.competitorsGet().slice( 0, o.concurrentLimit );
+  const limitedRequests = o.uri.slice( 0, o.concurrentLimit );
   let i;
 
-  for( i = 0; i < firstBatch.length; i++ )
+  for( i = 0; i < limitedRequests.length; i++ )
   _request( ops[ i ] );
 
   if( o.sync )

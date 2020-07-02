@@ -27,75 +27,58 @@ function retrieve( test )
   test.case = 'single URI';
   var got = _.http.retrieve
   ( {
-    uri : 'https://www.google.com/',
+    uri : 'https://github.com/Wandalen/wModuleForTesting1a/blob/master/.gitattributes',
     sync : 1,
     attemptLimit : 1,
   } );
-  var exp = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
-  test.identical( got.response.body.substring( 0, 60 ) + '...', exp );
+  test.notIdentical( got.response.body.match( /<tr>/g ), null );
 
-  //
+  /* */
 
-  test.case = 'array of identical URI';
-  var uris = [];
-  var results = [];
-  var l = 100;
-  for( let i = 0; i < l; i++ )
-  {
-    uris.push( 'https://www.google.com/' );
-    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
-  }
+  test.case = 'array of URI';
 
-  var hooksArr = _.http.retrieve
+  var uris = [
+    'https://github.com/Wandalen/wModuleForTesting1/blob/master/proto/dwtools/testing/l1/Include.s',
+    'https://github.com/Wandalen/wModuleForTesting1/blob/master/proto/dwtools/testing/l1/ModuleForTesting1.s'
+  ];
+
+  var got = _.http.retrieve
   ( {
     uri : uris,
     sync : 1,
-    attemptLimit : 3
+    attemptLimit : 2
   } );
-  var got = [];
-  for( let i = 0; i < hooksArr.length; i++ )
-  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
 
-  var exp = results;
-  test.identical( got, exp );
+  test.notIdentical( got[ 0 ].response.body.match( /<tr>/g ), null );
+  test.notIdentical( got[ 1 ].response.body.match( /<tr>/g ), null );
 
-  //
+  /* */
 
-  test.case = 'array of different URI';
-  var uris = [];
-  var results = [];
-  var l = 50;
-  for( let i = 0; i < l; i++ )
-  {
-    uris.push( 'https://www.google.com/' );
-    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
-    uris.push( 'https://www.npmjs.com/' );
-    results.push( '<!doctype html...' )
-  }
+  test.case = 'array of URI, order of answers is the same as requests';
 
-  var hooksArr = _.http.retrieve
+  var uris = [
+    'https://github.com/Wandalen/wModuleForTesting1/blob/master/proto/dwtools/testing/l1/Include.s',
+    'https://github.com/Wandalen/wModuleForTesting1/blob/master/proto/dwtools/testing/l1/ModuleForTesting1.s'
+  ];
+
+  var got0 = _.http.retrieve( { uri : uris[ 0 ], sync : 1, attemptLimit : 1 } );
+  var got1 = _.http.retrieve( { uri : uris[ 1 ], sync : 1, attemptLimit : 1 } );
+
+  var got = _.http.retrieve
   ( {
     uri : uris,
     sync : 1,
-    attemptLimit : 3
+    attemptLimit : 2
   } );
-  var got = [];
-  for( let i = 0; i < hooksArr.length; i++ )
-  {
-    if( i % 2 === 0 )
-    got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
-    else
-    got[ i ] = hooksArr[ i ].response.body.substring( 1, 15 ) + '...';
-  }
 
-  var exp = results;
-  test.identical( got, exp );
+  test.identical( got[ 0 ].response.body.match( /<tr>/g ), got0.response.body.match( /<tr>/g ) );
+  test.identical( got[ 1 ].response.body.match( /<tr>/g ), got1.response.body.match( /<tr>/g ) );
 }
 retrieve.description =
 `
 Makes GET requests to the given URI
 `
-
+// rapidity : -2 !!!!!!!!!!!!!!!!!!!!!!!!
 //
 
 function retrieveConcurrentLimitOption( test )
@@ -115,7 +98,7 @@ function retrieveConcurrentLimitOption( test )
     } );
   } )
 
-  //
+  /* */
 
   test.case = 'concurrentLimit < 0';
   var uri = 'https://www.google.com/';
@@ -132,7 +115,7 @@ function retrieveConcurrentLimitOption( test )
     } );
   } )
 
-  //
+  /* */
 
   test.case = 'concurrentLimit < uris';
   var uris = [];
@@ -159,7 +142,7 @@ function retrieveConcurrentLimitOption( test )
   var exp = results;
   test.identical( got, exp );
 
-  //
+  /* */
 
   test.case = 'concurrentLimit > uris';
   var uris = [];
