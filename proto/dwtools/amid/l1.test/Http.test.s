@@ -71,7 +71,7 @@ retrieve.description =
 `
 Makes GET requests to the given URI
 `
-// rapidity : -2 !!!!!!!!!!!!!!!!!!!!!!!!
+
 //
 
 function retrieveConcurrentLimitOption( test )
@@ -132,6 +132,27 @@ retrieveConcurrentLimitOption.description = `
 Makes no more GET requests at the same time than specified in the concurrentLimit option
 `
 
+//
+
+function retrieveStress( test )
+{
+  var uris = [];
+  const l = 1e6;
+  for( let i = 0; i < l; i++ )
+  uris.push( 'https://www.google.com/' );
+
+  var got = _.http.retrieve
+  ( {
+    uri : uris,
+    sync : 1,
+    attemptLimit : l,
+    concurrentLimit : l
+  } );
+
+  test.identical( got.length, l );
+}
+retrieveStress.rapidity = -1;
+
 // --
 // declare
 // --
@@ -152,7 +173,9 @@ var Proto =
   tests :
   {
     retrieve,
-    retrieveConcurrentLimitOption
+    retrieveConcurrentLimitOption,
+
+    retrieveStress,
   },
 
 }
