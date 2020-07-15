@@ -6,5 +6,5 @@ Collection of tools to make HTTP requests.
 ## Try out
 ```
 npm install
-node sample/Sample.js
+node sample/Sample.s
 ```
