@@ -1,6 +1,6 @@
 {
   "name" : "whttp",
-  "version" : "0.3.23",
+  "version" : "0.3.24",
   "description" : "Collection of tools to make HTTP requests.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
