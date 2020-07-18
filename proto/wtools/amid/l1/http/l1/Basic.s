@@ -172,7 +172,7 @@ retrieve.defaults = /* qqq : cover */
 // declare
 // --
 
-let Extend =
+let Extension =
 {
 
   protocols : [ 'http', 'https' ],
@@ -181,7 +181,7 @@ let Extend =
 
 }
 
-_.mapExtend( Self, Extend );
+_.mapExtend( Self, Extension );
 
 //
 
