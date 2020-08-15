@@ -1,15 +1,1 @@
-{
-  "name" : "whttp",
-  "version" : "0.3.28",
-  "description" : "Collection of tools to make HTTP requests.",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "license" : "MIT",
-  "main" : "proto/wtools/amid/l1/http/Include.s",
-  "files" : [ "proto/wtools/amid/l1/http", "proto/wtools/Tools.s" ],
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen .build proto" },
-  "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
-  "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
-  "dependencies" : { "wTools" : "", "wConsequence" : "", "needle" : "2.5.0" },
-  "devDependencies" : { "wTesting" : "", "whttp" : "file:." },
-  "keywords" : [ "wTools" ]
-}
+{"name":"whttp","version":"0.3.29","description":"Collection of tools to make HTTP requests.","author":"Kostiantyn Wandalen <wanalen@01.school>","license":"MIT","main":"proto/wtools/amid/l1/http/Include.s","files":["proto/wtools/amid/l1/http","proto/wtools/Tools.s"],"scripts":{"test":"wtest .run 'proto/**' rapidity:-3","docgen":"wdocgen .build proto"},"repository":{"type":"git","url":"https://github.com/Wandalen/wHttp.git"},"bugs":{"url":"https://github.com/Wandalen/wHttp/issues"},"dependencies":{"wTools":"","wConsequence":"","needle":"2.5.0"},"devDependencies":{"wTesting":"","whttp":"file:."},"keywords":["wTools"]}
