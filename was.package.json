@@ -10,6 +10,6 @@
   "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
   "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
   "dependencies" : { "wTools" : "", "wConsequence" : "", "needle" : "2.5.0" },
-  "devDependencies" : { "wTesting" : "", "whttp" : "file:." },
+  "devDependencies" : { "wTesting" : "", "whttp" : "file:.", "eslint" : "7.1.0" },
   "keywords" : [ "wTools" ]
 }
