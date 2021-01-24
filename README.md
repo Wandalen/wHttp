@@ -8,7 +8,7 @@ Collection of tools to make HTTP requests.
 git clone https://github.com/Wandalen/wHttp
 cd wHttp
 npm install
-node sample/Sample.s
+node sample/trivial/Sample.s
 ```
 
 ## To add to your project
