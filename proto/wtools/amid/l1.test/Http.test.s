@@ -101,7 +101,7 @@ Makes no more GET requests at the same time than specified in the concurrentLimi
 // declare
 // --
 
-var Proto =
+const Proto =
 {
 
   name : 'Tools.mid.NpmTools',
