@@ -4,8 +4,8 @@
 'use strict';
 
 let needle = require( 'needle' );
-let _ = _global_.wTools;
-let Self = _.http = _.http || Object.create( null );
+const _ = _global_.wTools;
+const Self = _.http = _.http || Object.create( null );
 
 // --
 // inter
