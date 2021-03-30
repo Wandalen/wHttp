@@ -5,11 +5,11 @@
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
   "main" : "proto/wtools/amid/l1/http/Include.s",
-  "files" : [ "proto/wtools/amid/l1/http", "proto/wtools/Tools.s" ],
+  "files" : [ "proto/wtools/amid/l1/http", "proto/wtools/Tools.s", "proto/node_modules" ],
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen .build proto" },
   "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
   "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
   "dependencies" : { "wTools" : "", "wConsequence" : "", "needle" : "2.5.0" },
-  "devDependencies" : { "wTesting" : "", "whttp" : "file:." },
+  "devDependencies" : { "wTesting" : "" },
   "keywords" : [ "wTools" ]
 }
