@@ -61,8 +61,8 @@ path:
       raw: compiled
       content: prime
   npm.proto.entry:
-    - /pro/module/wHttp/proto/wtools/amid/l1/http/Include.s
-    - /pro/module/wHttp/proto/node_modules/whttp
+    - proto/wtools/amid/l1/http/Include.s
+    - proto/node_modules/whttp
 reflector:
   reflect.proto:
     inherit: predefined.*
