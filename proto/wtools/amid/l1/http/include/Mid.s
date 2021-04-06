@@ -7,7 +7,7 @@
 
 if( typeof module !== 'undefined' )
 {
-  let _ = require( './Basic.s' );
+  const _ = require( './Basic.s' );
   require( '../l1/Basic.s' );
   module[ 'exports' ] = _global_.wTools;
 }
