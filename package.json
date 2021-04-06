@@ -1,11 +1,11 @@
 {
   "name" : "whttp",
-  "version" : "0.3.83",
+  "version" : "0.3.84",
   "description" : "Collection of tools to make HTTP requests.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
   "main" : "proto/node_modules/whttp",
-  "files" : [ "proto/wtools/amid/l1/http", "proto/wtools/Tools.s", "proto/node_modules" ],
+  "files" : [ "proto/wtools/amid/l1/http", "proto/node_modules" ],
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen .build proto" },
   "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
   "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
