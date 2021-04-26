@@ -20,7 +20,7 @@ function retrieve( o )
 
   if( !_.mapIs( o ) )
   o = { uri : o }
-  _.routineOptions( retrieve, o );
+  _.routine.options_( retrieve, o );
 
   if( o.successStatus === null )
   o.successStatus = [ 200 ];
@@ -181,7 +181,7 @@ let Extension =
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 //
 
