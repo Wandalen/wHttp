@@ -3,16 +3,22 @@
 
 Collection of tools to make HTTP requests.
 
-## Try out from the repository
+### Try out from the repository
+
 ```
 git clone https://github.com/Wandalen/wHttp
 cd wHttp
-npm install
+will .npm.install
 node sample/trivial/Sample.s
 ```
 
+Make sure you have utility `willbe` installed. To install willbe: `npm i -g willbe@stable`. Willbe is required to build of the module.
+
 ### To add to your project
+
 ```
-npm add 'whttp@alpha'
+npm add 'whttp@stable'
 ```
+
+`Willbe` is not required to use the module in your project as submodule.
 
