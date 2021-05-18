@@ -1,6 +1,6 @@
 {
   "name" : "whttp",
-  "version" : "0.3.96",
+  "version" : "0.3.97",
   "description" : "Collection of tools to make HTTP requests.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
@@ -9,7 +9,7 @@
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen .build proto" },
   "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
   "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
-  "dependencies" : { "needle" : "2.5.0", "wTools" : "delta", "wConsequence" : "delta" },
-  "devDependencies" : { "wTesting" : "delta" },
+  "dependencies" : { "needle" : "2.5.0", "wTools" : "gamma", "wConsequence" : "gamma" },
+  "devDependencies" : { "wTesting" : "gamma" },
   "keywords" : [ "wTools" ]
 }
