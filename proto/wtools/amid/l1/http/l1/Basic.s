@@ -25,10 +25,10 @@ function retrieve( o )
   if( o.successStatus === null )
   o.successStatus = [ 200 ];
   else
-  o.successStatus = _.arrayAs( o.successStatus );
+  o.successStatus = _.array.as( o.successStatus );
 
   let isSingle = !_.arrayIs( o.uri );
-  o.uri = _.arrayAs( o.uri );
+  o.uri = _.array.as( o.uri );
 
   if( o.openTimeOut === null )
   o.openTimeOut = o.individualTimeOut;
