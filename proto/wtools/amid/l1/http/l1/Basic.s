@@ -5,7 +5,7 @@
 
 let needle = require( 'needle' );
 const _ = _global_.wTools;
-const Self = _.http = _.http || Object.create( null );
+_.http = _.http || Object.create( null );
 
 // --
 // inter
@@ -181,7 +181,7 @@ let Extension =
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.http, Extension );
 
 //
 
