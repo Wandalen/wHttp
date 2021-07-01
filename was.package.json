@@ -1,15 +1,36 @@
 {
-  "name" : "whttp",
-  "version" : "0.3.101",
-  "description" : "Collection of tools to make HTTP requests.",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "license" : "MIT",
-  "main" : "proto/node_modules/whttp",
-  "files" : [ "proto/wtools/amid/l1/http", "proto/node_modules", "proto/node_modules/Tools", "proto/node_modules/whttp" ],
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen .build proto" },
-  "repository" : { "type" : "git", "url" : "https://github.com/Wandalen/wHttp.git" },
-  "bugs" : { "url" : "https://github.com/Wandalen/wHttp/issues" },
-  "dependencies" : { "wTools" : "", "wConsequence" : "", "needle" : "2.5.0" },
-  "devDependencies" : { "wTesting" : "" },
-  "keywords" : [ "wTools" ]
+  "name": "whttp",
+  "version": "0.3.102",
+  "description": "Collection of tools to make HTTP requests.",
+  "author": "Kostiantyn Wandalen <wanalen@01.school>",
+  "license": "MIT",
+  "main": "proto/node_modules/whttp",
+  "files": [
+    "proto/wtools/amid/l1/http",
+    "proto/node_modules",
+    "proto/node_modules/Tools",
+    "proto/node_modules/whttp"
+  ],
+  "scripts": {
+    "test": "wtest .run 'proto/**' rapidity:-3",
+    "docgen": "wdocgen .build proto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wHttp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wandalen/wHttp/issues"
+  },
+  "dependencies": {
+    "wTools": "",
+    "wConsequence": "",
+    "needle": "2.5.0"
+  },
+  "devDependencies": {
+    "wTesting": ""
+  },
+  "keywords": [
+    "wTools"
+  ]
 }
