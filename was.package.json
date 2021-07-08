@@ -28,6 +28,7 @@
     "needle": "2.5.0"
   },
   "devDependencies": {
+    "eslint" : "7.1.0",
     "wTesting": ""
   },
   "keywords": [
