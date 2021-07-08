@@ -3,8 +3,8 @@ root:
   - wHttp.out
 consistency:
   ../will.yml: &ref_0
-    hash: aa9086dcb26340d02f819b32754c5e24
-    size: 6132
+    hash: 4e86f0e78d3116bac99b787bbe4ba9d9
+    size: 6316
 module:
   wHttp.out:
     about:
@@ -173,6 +173,18 @@ module:
         path: 'npm:///needle#2.5.0'
         autoExporting: 0
         enabled: 0
+      eslint:
+        path: 'npm:///eslint#7.1.0'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      wTesting:
+        path: 'npm:///wTesting'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
     reflector:
       reflect.proto.debug.raw:
         src:
@@ -897,6 +909,18 @@ module:
         path: 'npm:///needle#2.5.0'
         autoExporting: 0
         enabled: 0
+      eslint:
+        path: 'npm:///eslint#7.1.0'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      wTesting:
+        path: 'npm:///wTesting'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
     reflector:
       reflect.proto.debug.raw:
         src:
@@ -1429,5 +1453,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: aa9086dcb26340d02f819b32754c5e24
-        size: 6132
+        hash: 4e86f0e78d3116bac99b787bbe4ba9d9
+        size: 6316

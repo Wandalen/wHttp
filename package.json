@@ -1,6 +1,6 @@
 {
   "name": "whttp",
-  "version": "0.3.106",
+  "version": "0.3.107",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wanalen@01.school>",
   "license": "MIT",
@@ -28,7 +28,8 @@
     "needle": "2.5.0"
   },
   "devDependencies": {
-    "wTesting": "stable"
+    "wTesting": "stable",
+    "eslint": "7.1.0"
   },
   "keywords": [
     "wTools"
