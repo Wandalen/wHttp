@@ -105,7 +105,7 @@ function retrieveWithOptionOnSucces( test )
   test.case = 'onSuccess returns true';
   var got = _.http.retrieve
   ({
-    uri : 'https://google.com',
+    uri : 'https://www.google.com/',
     sync : 1,
     attemptLimit : 3,
     onSuccess : ( res ) => true,
@@ -130,9 +130,38 @@ function retrieveWithOptionOnSucces( test )
   {
     return _.http.retrieve
     ({
-      uri : 'https://google.com/',
+      uri : 'https://www.google.com/',
       sync : 1,
       attemptLimit : 3,
+      onSuccess : ( res ) => false,
+      verbosity : 3,
+    });
+  }, onErrorCallback );
+}
+
+//
+
+function retrieveWithOptionAttemptDelayMultiplier( test )
+{
+  test.case = 'onSuccess returns false, should throw error';
+  var start = _.time.now();
+  var onErrorCallback = ( err, arg ) =>
+  {
+    var spent = _.time.now() - start;
+    test.ge( spent, 5250 );
+    test.true( _.error.is( err ) );
+    test.identical( arg, undefined );
+    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
+  };
+  test.shouldThrowErrorSync( () =>
+  {
+    return _.http.retrieve
+    ({
+      uri : 'https://www.google.com/',
+      sync : 1,
+      attemptLimit : 4,
+      attemptDelay : 250,
+      attemptDelayMultiplier : 4,
       onSuccess : ( res ) => false,
       verbosity : 3,
     });
@@ -161,6 +190,7 @@ const Proto =
     retrieve,
     retrieveConcurrentLimitOption,
     retrieveWithOptionOnSucces,
+    retrieveWithOptionAttemptDelayMultiplier,
   },
 
 }
