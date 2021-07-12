@@ -93,9 +93,51 @@ function retrieveConcurrentLimitOption( test )
   var exp = results;
   test.identical( got, exp );
 }
-retrieveConcurrentLimitOption.description = `
-Makes no more GET requests at the same time than specified in the concurrentLimit option
+retrieveConcurrentLimitOption.description =
 `
+Makes no more GET requests at the same time than specified in the concurrentLimit option
+`;
+
+//
+
+function retrieveWithOptionOnSucces( test )
+{
+  test.case = 'onSuccess returns true';
+  var got = _.http.retrieve
+  ({
+    uri : 'https://google.com',
+    sync : 1,
+    attemptLimit : 3,
+    onSuccess : ( res ) => true,
+    verbosity : 3,
+  });
+  test.true( _.map.is( got ) );
+  test.identical( got.uri, 'https://www.google.com/' );
+  test.le( got.attempt, 3 );
+  test.true( _.consequenceIs( got.ready ) );
+  test.identical( got.err, null );
+  test.true( _.object.is( got.response ) );
+  test.identical( got.response.statusCode, 200 );
+
+  test.case = 'onSuccess returns false, should throw error';
+  var onErrorCallback = ( err, arg ) =>
+  {
+    test.true( _.error.is( err ) );
+    test.identical( arg, undefined );
+    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+  };
+  test.shouldThrowErrorSync( () =>
+  {
+    return _.http.retrieve
+    ({
+      uri : 'https://google.com/',
+      sync : 1,
+      attemptLimit : 3,
+      onSuccess : ( res ) => false,
+      verbosity : 3,
+    });
+  }, onErrorCallback );
+}
 
 // --
 // declare
@@ -104,7 +146,7 @@ Makes no more GET requests at the same time than specified in the concurrentLimi
 const Proto =
 {
 
-  name : 'Tools.mid.NpmTools',
+  name : 'Tools.mid.Http',
   silencing : 1,
   routineTimeOut : 60000,
 
@@ -117,7 +159,8 @@ const Proto =
   tests :
   {
     retrieve,
-    retrieveConcurrentLimitOption
+    retrieveConcurrentLimitOption,
+    retrieveWithOptionOnSucces,
   },
 
 }
