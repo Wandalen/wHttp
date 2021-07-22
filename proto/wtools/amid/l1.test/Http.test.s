@@ -148,7 +148,7 @@ function retrieveWithOptionAttemptDelayMultiplier( test )
   var onErrorCallback = ( err, arg ) =>
   {
     var spent = _.time.now() - start;
-    test.ge( spent, 5250 );
+    test.ge( spent, 3250 );
     test.true( _.error.is( err ) );
     test.identical( arg, undefined );
     test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
@@ -161,7 +161,57 @@ function retrieveWithOptionAttemptDelayMultiplier( test )
       sync : 1,
       attemptLimit : 4,
       attemptDelay : 250,
-      attemptDelayMultiplier : 4,
+      attemptDelayMultiplier : 3,
+      onSuccess : ( res ) => false,
+      verbosity : 3,
+    });
+  }, onErrorCallback );
+}
+
+//
+
+function retrieveCheckAttemptOptionsSupplementing( test )
+{
+  test.case = 'attemptLimit in options map, onSuccess returns false, should throw error';
+  var start = _.time.now();
+  var onErrorCallback = ( err, arg ) =>
+  {
+    var spent = _.time.now() - start;
+    test.ge( spent, 200 );
+    test.true( _.error.is( err ) );
+    test.identical( arg, undefined );
+    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
+  };
+  test.shouldThrowErrorSync( () =>
+  {
+    return _.http.retrieve
+    ({
+      uri : 'https://www.google.com/',
+      sync : 1,
+      attemptLimit : 4,
+      onSuccess : ( res ) => false,
+      verbosity : 3,
+    });
+  }, onErrorCallback );
+
+  /* */
+
+  test.case = 'without attempts settings in options map, onSuccess returns false, should throw error';
+  var start = _.time.now();
+  var onErrorCallback = ( err, arg ) =>
+  {
+    var spent = _.time.now() - start;
+    test.ge( spent, 200 );
+    test.true( _.error.is( err ) );
+    test.identical( arg, undefined );
+    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+  };
+  test.shouldThrowErrorSync( () =>
+  {
+    return _.http.retrieve
+    ({
+      uri : 'https://www.google.com/',
+      sync : 1,
       onSuccess : ( res ) => false,
       verbosity : 3,
     });
@@ -191,6 +241,7 @@ const Proto =
     retrieveConcurrentLimitOption,
     retrieveWithOptionOnSucces,
     retrieveWithOptionAttemptDelayMultiplier,
+    retrieveCheckAttemptOptionsSupplementing,
   },
 
 }
