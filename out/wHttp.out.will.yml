@@ -3,8 +3,8 @@ root:
   - wHttp.out
 consistency:
   ../will.yml: &ref_0
-    hash: 4e86f0e78d3116bac99b787bbe4ba9d9
-    size: 6316
+    hash: 3593d34e7ff062f4553f506815d576ca
+    size: 6432
 module:
   wHttp.out:
     about:
@@ -167,6 +167,14 @@ module:
     submodule:
       wTools:
         path: 'npm:///wTools'
+        autoExporting: 0
+        enabled: 0
+      wConsequence:
+        path: 'npm:///wConsequence'
+        autoExporting: 0
+        enabled: 0
+      wRemote:
+        path: 'npm:///wRemote'
         autoExporting: 0
         enabled: 0
       needle:
@@ -905,6 +913,14 @@ module:
         path: 'npm:///wTools'
         autoExporting: 0
         enabled: 0
+      wConsequence:
+        path: 'npm:///wConsequence'
+        autoExporting: 0
+        enabled: 0
+      wRemote:
+        path: 'npm:///wRemote'
+        autoExporting: 0
+        enabled: 0
       needle:
         path: 'npm:///needle#2.5.0'
         autoExporting: 0
@@ -1453,5 +1469,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: 4e86f0e78d3116bac99b787bbe4ba9d9
-        size: 6316
+        hash: 3593d34e7ff062f4553f506815d576ca
+        size: 6432
