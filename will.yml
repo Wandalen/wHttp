@@ -287,6 +287,12 @@ submodule:
   wTools:
     path: 'npm:///wTools'
     enabled: 0
+  wConsequence:
+    path: 'npm:///wConsequence'
+    enabled: 0
+  wRemote:
+    path: 'npm:///wRemote'
+    enabled: 0
   needle:
     path: 'npm:///needle#2.5.0'
     enabled: 0

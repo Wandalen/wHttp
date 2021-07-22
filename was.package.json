@@ -25,6 +25,7 @@
   "dependencies": {
     "wTools": "",
     "wConsequence": "",
+    "wremote": "",
     "needle": "2.5.0"
   },
   "devDependencies": {
