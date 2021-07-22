@@ -197,8 +197,8 @@ function retrieve( o )
 
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.strsAreAll( o.uri ), 'Expects only strings as a package name' );
-  _.assert( o.attemptLimit > 0 );
-  _.assert( o.attemptDelay >= 0 );
+  // _.assert( o.attemptLimit > 0 );
+  // _.assert( o.attemptDelay >= 0 );
   _.assert( o.openTimeOut >= 0 );
   _.assert( o.responseTimeOut >= 0 );
   _.assert( o.readTimeOut >= 0 );
@@ -239,6 +239,7 @@ function retrieve( o )
       attemptLimit : o.attemptLimit,
       attemptDelay : o.attemptDelay,
       attemptDelayMultiplier : o.attemptDelayMultiplier,
+      defaults : _.remote.attemptDefaults,
     });
   }
 
@@ -297,14 +298,15 @@ retrieve.defaults = /* qqq : cover */
   successStatus : null,
   sync : 0,
   onSuccess : null,
-  attemptLimit : 3,
-  attemptDelay : 100,
-  attemptDelayMultiplier : 1,
   openTimeOut : null,
   responseTimeOut : null,
   readTimeOut : null,
   individualTimeOut : 10000,
   concurrentLimit : 256, /* qqq : implement and cover option concurrentLimit */
+
+  attemptLimit : null,
+  attemptDelay : null,
+  attemptDelayMultiplier : null,
 };
 
 // --
