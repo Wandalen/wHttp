@@ -1,6 +1,6 @@
 {
   "name": "whttp",
-  "version": "0.3.112",
+  "version": "0.3.113",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wanalen@01.school>",
   "license": "MIT",
@@ -23,13 +23,13 @@
     "url": "https://github.com/Wandalen/wHttp/issues"
   },
   "dependencies": {
-    "wTools": "alpha",
-    "wremote": "alpha",
-    "wConsequence": "alpha",
+    "wTools": "latest",
+    "wremote": "latest",
+    "wConsequence": "latest",
     "needle": "2.5.0"
   },
   "devDependencies": {
-    "wTesting": "alpha",
+    "wTesting": "latest",
     "eslint": "7.1.0"
   },
   "keywords": [
