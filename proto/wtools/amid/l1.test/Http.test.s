@@ -86,30 +86,43 @@ Makes GET requests to the given URI
 
 function retrieveConcurrentLimitOption( test )
 {
-  test.case = 'concurrentLimit 10 time less than uris';
-  var uris = [];
-  var results = [];
-  const l = 100;
-  for( let i = 0; i < l; i++ )
+  const a = test.assetFor( false );
+
+  /* - */
+
+  a.ready.then( () =>
   {
-    uris.push( 'https://www.google.com/' );
-    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' );
-  }
+    test.case = 'concurrentLimit 10 time less than uris';
+    var uris = _.array.make( 100 );
+    for( let i = 0; i < uris.length; i++ )
+    uris[ i ] = 'https://www.google.com/';
 
-  var hooksArr = _.http.retrieve
-  ( {
-    uri : uris,
-    sync : 1,
-    attemptLimit : 3,
-    verbosity : 3,
-    concurrentLimit : 10
-  } );
-  var got = [];
-  for( let i = 0; i < hooksArr.length; i++ )
-  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+    return _.http.retrieve
+    ({
+      uri : uris,
+      sync : 1,
+      attemptLimit : 3,
+      verbosity : 3,
+      concurrentLimit : 10
+    });
+  });
+  a.ready.then( ( op ) =>
+  {
+    var got = _.array.make( op.length );
+    for( let i = 0; i < op.length; i++ )
+    got[ i ] = op[ i ].response.body.substring( 0, 60 ) + '...';
 
-  var exp = results;
-  test.identical( got, exp );
+    var exp = _.array.make( 100 );
+    for( let i = 0 ; i < exp.length ; i++ )
+    exp[ i ] = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
+
+    test.identical( got, exp );
+    return null;
+  });
+
+  /* - */
+
+  return a.ready;
 }
 retrieveConcurrentLimitOption.description =
 `
