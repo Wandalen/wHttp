@@ -15,83 +15,109 @@ if( typeof module !== 'undefined' )
 const _ = _global_.wTools;
 
 // --
-// context
-// --
-
-// --
 // tests
 // --
 
 function retrieve( test )
 {
-  test.case = 'single URI';
-  var got = _.http.retrieve
-  ( {
-    uri : 'https://www.google.com/',
-    sync : 1,
-    attemptLimit : 1,
-  } );
-  var exp = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
-  test.identical( got.response.body.substring( 0, 60 ) + '...', exp );
+  const a = test.assetFor( false );
 
-  //
+  /* - */
 
-  test.case = 'array of URI';
-  var uris = [];
-  var results = [];
-  const l = 100;
-  for( let i = 0; i < l; i++ )
+  a.ready.then( () =>
   {
-    uris.push( 'https://www.google.com/' );
-    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' )
-  }
+    test.case = 'single URI';
+    return _.http.retrieve
+    ({
+      uri : 'https://www.google.com/',
+      attemptLimit : 1,
+    });
+  });
+  a.ready.then( ( op ) =>
+  {
+    var exp = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
+    test.identical( op.response.body.substring( 0, 60 ) + '...', exp );
+    return null;
+  });
 
-  var hooksArr = _.http.retrieve
-  ( {
-    uri : uris,
-    sync : 1,
-    attemptLimit : 3
-  } );
-  var got = [];
-  for( let i = 0; i < hooksArr.length; i++ )
-  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+  /* */
 
-  var exp = results;
-  test.identical( got, exp );
+  a.ready.then( () =>
+  {
+    test.case = 'array of URIs';
+    var uris = _.array.make( 100 );
+    for( let i = 0; i < uris.length; i++ )
+    uris[ i ] = 'https://www.google.com/';
+
+    return _.http.retrieve
+    ({
+      uri : uris,
+      attemptLimit : 3
+    });
+  });
+  a.ready.then( ( op ) =>
+  {
+    var got = _.array.make( op.length );
+    for( let i = 0; i < op.length; i++ )
+    got[ i ] = op[ i ].response.body.substring( 0, 60 ) + '...';
+
+    var exp = _.array.make( 100 );
+    for( let i = 0 ; i < exp.length ; i++ )
+    exp[ i ] = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
+
+    test.identical( got, exp );
+    return null;
+  });
+
+  /* - */
+
+  return a.ready;
 }
 retrieve.description =
 `
 Makes GET requests to the given URI
-`
+`;
 
 //
 
 function retrieveConcurrentLimitOption( test )
 {
-  test.case = 'concurrentLimit 10 time less than uris';
-  var uris = [];
-  var results = [];
-  const l = 100;
-  for( let i = 0; i < l; i++ )
+  const a = test.assetFor( false );
+
+  /* - */
+
+  a.ready.then( () =>
   {
-    uris.push( 'https://www.google.com/' );
-    results.push( '<!doctype html><html itemscope="" itemtype="http://schema.or...' );
-  }
+    test.case = 'concurrentLimit 10 time less than uris';
+    var uris = _.array.make( 100 );
+    for( let i = 0; i < uris.length; i++ )
+    uris[ i ] = 'https://www.google.com/';
 
-  var hooksArr = _.http.retrieve
-  ( {
-    uri : uris,
-    sync : 1,
-    attemptLimit : 3,
-    verbosity : 3,
-    concurrentLimit : 10
-  } );
-  var got = [];
-  for( let i = 0; i < hooksArr.length; i++ )
-  got[ i ] = hooksArr[ i ].response.body.substring( 0, 60 ) + '...';
+    return _.http.retrieve
+    ({
+      uri : uris,
+      attemptLimit : 3,
+      verbosity : 3,
+      concurrentLimit : 10
+    });
+  });
+  a.ready.then( ( op ) =>
+  {
+    var got = _.array.make( op.length );
+    for( let i = 0; i < op.length; i++ )
+    got[ i ] = op[ i ].response.body.substring( 0, 60 ) + '...';
 
-  var exp = results;
-  test.identical( got, exp );
+    var exp = _.array.make( 100 );
+    for( let i = 0 ; i < exp.length ; i++ )
+    exp[ i ] = '<!doctype html><html itemscope="" itemtype="http://schema.or...';
+
+    test.identical( got, exp );
+    return null;
+  });
+
+  /* - */
+
+  return a.ready;
 }
 retrieveConcurrentLimitOption.description =
 `
@@ -102,120 +128,161 @@ Makes no more GET requests at the same time than specified in the concurrentLimi
 
 function retrieveWithOptionOnSucces( test )
 {
-  test.case = 'onSuccess returns true';
-  var got = _.http.retrieve
-  ({
-    uri : 'https://www.google.com/',
-    sync : 1,
-    attemptLimit : 3,
-    onSuccess : ( res ) => true,
-    verbosity : 3,
-  });
-  test.true( _.map.is( got ) );
-  test.identical( got.uri, 'https://www.google.com/' );
-  test.le( got.attempt, 3 );
-  test.true( _.consequenceIs( got.ready ) );
-  test.identical( got.err, null );
-  test.true( _.object.is( got.response ) );
-  test.identical( got.response.statusCode, 200 );
+  const a = test.assetFor( false );
 
-  test.case = 'onSuccess returns false, should throw error';
-  var onErrorCallback = ( err, arg ) =>
+  /* - */
+
+  a.ready.then( () =>
   {
-    test.true( _.error.is( err ) );
-    test.identical( arg, undefined );
-    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
-  };
-  test.shouldThrowErrorSync( () =>
-  {
+
+    test.case = 'onSuccess returns true';
     return _.http.retrieve
     ({
       uri : 'https://www.google.com/',
-      sync : 1,
       attemptLimit : 3,
-      onSuccess : ( res ) => false,
+      onSuccess : ( res ) => true,
       verbosity : 3,
     });
-  }, onErrorCallback );
+  });
+  a.ready.then( ( op ) =>
+  {
+    test.true( _.map.is( op ) );
+    test.identical( op.uri, 'https://www.google.com/' );
+    test.le( op.attempt, 3 );
+    test.true( _.consequenceIs( op.ready ) );
+    test.identical( op.err, null );
+    test.true( _.object.is( op.response ) );
+    test.identical( op.response.statusCode, 200 );
+    return null;
+  });
+
+  /* */
+
+  a.ready.then( () =>
+  {
+    test.case = 'onSuccess returns false, should throw error';
+    var onErrorCallback = ( err, arg ) =>
+    {
+      test.true( _.error.is( err ) );
+      test.identical( arg, undefined );
+      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+    };
+    return test.shouldThrowErrorAsync( () =>
+    {
+      return _.http.retrieve
+      ({
+        uri : 'https://www.google.com/',
+        attemptLimit : 3,
+        onSuccess : ( res ) => false,
+        verbosity : 3,
+      });
+    }, onErrorCallback );
+  });
+
+  /* - */
+
+  return a.ready;
 }
 
 //
 
 function retrieveWithOptionAttemptDelayMultiplier( test )
 {
-  test.case = 'onSuccess returns false, should throw error';
-  var start = _.time.now();
-  var onErrorCallback = ( err, arg ) =>
+  const a = test.assetFor( false );
+
+  /* - */
+
+  a.ready.then( () =>
   {
-    var spent = _.time.now() - start;
-    test.ge( spent, 3250 );
-    test.true( _.error.is( err ) );
-    test.identical( arg, undefined );
-    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
-  };
-  test.shouldThrowErrorSync( () =>
-  {
-    return _.http.retrieve
-    ({
-      uri : 'https://www.google.com/',
-      sync : 1,
-      attemptLimit : 4,
-      attemptDelay : 250,
-      attemptDelayMultiplier : 3,
-      onSuccess : ( res ) => false,
-      verbosity : 3,
-    });
-  }, onErrorCallback );
+    test.case = 'onSuccess returns false, should throw error';
+    var start = _.time.now();
+    var onErrorCallback = ( err, arg ) =>
+    {
+      var spent = _.time.now() - start;
+      test.ge( spent, 3250 );
+      test.true( _.error.is( err ) );
+      test.identical( arg, undefined );
+      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
+    };
+    return test.shouldThrowErrorAsync( () =>
+    {
+      return _.http.retrieve
+      ({
+        uri : 'https://www.google.com/',
+        attemptLimit : 4,
+        attemptDelay : 250,
+        attemptDelayMultiplier : 3,
+        onSuccess : ( res ) => false,
+        verbosity : 3,
+      });
+    }, onErrorCallback );
+  });
+
+  /* - */
+
+  return a.ready;
 }
 
 //
 
 function retrieveCheckAttemptOptionsSupplementing( test )
 {
-  test.case = 'attemptLimit in options map, onSuccess returns false, should throw error';
-  var start = _.time.now();
-  var onErrorCallback = ( err, arg ) =>
+  const a = test.assetFor( false );
+
+  /* - */
+
+  a.ready.then( () =>
   {
-    var spent = _.time.now() - start;
-    test.ge( spent, 200 );
-    test.true( _.error.is( err ) );
-    test.identical( arg, undefined );
-    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
-  };
-  test.shouldThrowErrorSync( () =>
-  {
-    return _.http.retrieve
-    ({
-      uri : 'https://www.google.com/',
-      sync : 1,
-      attemptLimit : 4,
-      onSuccess : ( res ) => false,
-      verbosity : 3,
-    });
-  }, onErrorCallback );
+    test.case = 'attemptLimit in options map, onSuccess returns false, should throw error';
+    var start = _.time.now();
+    var onErrorCallback = ( err, arg ) =>
+    {
+      var spent = _.time.now() - start;
+      test.ge( spent, 200 );
+      test.true( _.error.is( err ) );
+      test.identical( arg, undefined );
+      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
+    };
+    return test.shouldThrowErrorAsync( () =>
+    {
+      return _.http.retrieve
+      ({
+        uri : 'https://www.google.com/',
+        attemptLimit : 4,
+        onSuccess : ( res ) => false,
+        verbosity : 3,
+      });
+    }, onErrorCallback );
+  });
 
   /* */
 
-  test.case = 'without attempts settings in options map, onSuccess returns false, should throw error';
-  var start = _.time.now();
-  var onErrorCallback = ( err, arg ) =>
+  a.ready.then( () =>
   {
-    var spent = _.time.now() - start;
-    test.ge( spent, 200 );
-    test.true( _.error.is( err ) );
-    test.identical( arg, undefined );
-    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
-  };
-  test.shouldThrowErrorSync( () =>
-  {
-    return _.http.retrieve
-    ({
-      uri : 'https://www.google.com/',
-      sync : 1,
-      onSuccess : ( res ) => false,
-      verbosity : 3,
-    });
-  }, onErrorCallback );
+    test.case = 'without attempts settings in options map, onSuccess returns false, should throw error';
+    var start = _.time.now();
+    var onErrorCallback = ( err, arg ) =>
+    {
+      var spent = _.time.now() - start;
+      test.ge( spent, 200 );
+      test.true( _.error.is( err ) );
+      test.identical( arg, undefined );
+      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+    };
+    return test.shouldThrowErrorAsync( () =>
+    {
+      return _.http.retrieve
+      ({
+        uri : 'https://www.google.com/',
+        onSuccess : ( res ) => false,
+        verbosity : 3,
+      });
+    }, onErrorCallback );
+  });
+
+  /* - */
+
+  return a.ready;
 }
 
 // --

@@ -1,12 +1,16 @@
 
-let _ = require( 'whttp' );
+const _ = require( 'whttp' );
 
-/**/
+/* */
 
-var got = _.http.retrieve
-( {
+return _.http.retrieve
+({
   uri : 'https://www.google.com/',
-  sync : 1,
   attemptLimit : 2,
-} );
-console.log( got.response.body.substring( 0, 60 ) + '...' );
+})
+.then( ( op ) =>
+{
+  console.log( op.response.body.substring( 0, 60 ) + '...' );
+  return null;
+});
+
