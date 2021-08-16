@@ -133,41 +133,60 @@ Makes no more GET requests at the same time than specified in the concurrentLimi
 
 function retrieveWithOptionOnSucces( test )
 {
-  test.case = 'onSuccess returns true';
-  var got = _.http.retrieve
-  ({
-    uri : 'https://www.google.com/',
-    sync : 1,
-    attemptLimit : 3,
-    onSuccess : ( res ) => true,
-    verbosity : 3,
-  });
-  test.true( _.map.is( got ) );
-  test.identical( got.uri, 'https://www.google.com/' );
-  test.le( got.attempt, 3 );
-  test.true( _.consequenceIs( got.ready ) );
-  test.identical( got.err, null );
-  test.true( _.object.is( got.response ) );
-  test.identical( got.response.statusCode, 200 );
+  const a = test.assetFor( false );
 
-  test.case = 'onSuccess returns false, should throw error';
-  var onErrorCallback = ( err, arg ) =>
+  /* - */
+
+  a.ready.then( () =>
   {
-    test.true( _.error.is( err ) );
-    test.identical( arg, undefined );
-    test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
-  };
-  test.shouldThrowErrorSync( () =>
-  {
+
+    test.case = 'onSuccess returns true';
     return _.http.retrieve
     ({
       uri : 'https://www.google.com/',
-      sync : 1,
       attemptLimit : 3,
-      onSuccess : ( res ) => false,
+      onSuccess : ( res ) => true,
       verbosity : 3,
     });
-  }, onErrorCallback );
+  });
+  a.ready.then( ( op ) =>
+  {
+    test.true( _.map.is( op ) );
+    test.identical( op.uri, 'https://www.google.com/' );
+    test.le( op.attempt, 3 );
+    test.true( _.consequenceIs( op.ready ) );
+    test.identical( op.err, null );
+    test.true( _.object.is( op.response ) );
+    test.identical( op.response.statusCode, 200 );
+    return null;
+  });
+
+  /* */
+
+  a.ready.then( () =>
+  {
+    test.case = 'onSuccess returns false, should throw error';
+    var onErrorCallback = ( err, arg ) =>
+    {
+      test.true( _.error.is( err ) );
+      test.identical( arg, undefined );
+      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+    };
+    return test.shouldThrowErrorAsync( () =>
+    {
+      return _.http.retrieve
+      ({
+        uri : 'https://www.google.com/',
+        attemptLimit : 3,
+        onSuccess : ( res ) => false,
+        verbosity : 3,
+      });
+    }, onErrorCallback );
+  });
+
+  /* - */
+
+  return a.ready;
 }
 
 //
