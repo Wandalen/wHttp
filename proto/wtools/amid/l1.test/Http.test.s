@@ -15,10 +15,6 @@ if( typeof module !== 'undefined' )
 const _ = _global_.wTools;
 
 // --
-// context
-// --
-
-// --
 // tests
 // --
 
@@ -100,7 +96,6 @@ function retrieveConcurrentLimitOption( test )
     return _.http.retrieve
     ({
       uri : uris,
-      sync : 1,
       attemptLimit : 3,
       verbosity : 3,
       concurrentLimit : 10
