@@ -3,7 +3,11 @@
   "version": "0.3.123",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wanalen@01.school>",
-  "license": "MIT",
+  "contributors": [
+    "Kostiantyn Wandalen <wanalen@01.school>",
+    "Dmytro Kryvoruchko <dm.vict.kr@gmail.com>"
+  ],
+"license": "MIT",
   "main": "proto/node_modules/whttp",
   "files": [
     "proto/wtools/amid/l1/http",
