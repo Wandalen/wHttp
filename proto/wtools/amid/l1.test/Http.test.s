@@ -165,7 +165,7 @@ function retrieveWithOptionOnSucces( test )
     {
       test.true( _.error.is( err ) );
       test.identical( arg, undefined );
-      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+      test.true( _.strHas( err.originalMessage, 'Attempts exhausted, made 3 attempts' ) );
     };
     return test.shouldThrowErrorAsync( () =>
     {
@@ -202,7 +202,7 @@ function retrieveWithOptionAttemptDelayMultiplier( test )
       test.ge( spent, 3250 );
       test.true( _.error.is( err ) );
       test.identical( arg, undefined );
-      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
+      test.true( _.strHas( err.originalMessage, 'Attempts exhausted, made 4 attempts' ) );
     };
     return test.shouldThrowErrorAsync( () =>
     {
@@ -241,7 +241,7 @@ function retrieveCheckAttemptOptionsSupplementing( test )
       test.ge( spent, 200 );
       test.true( _.error.is( err ) );
       test.identical( arg, undefined );
-      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 4 attempts' ) );
+      test.true( _.strHas( err.originalMessage, 'Attempts exhausted, made 4 attempts' ) );
     };
     return test.shouldThrowErrorAsync( () =>
     {
@@ -267,7 +267,7 @@ function retrieveCheckAttemptOptionsSupplementing( test )
       test.ge( spent, 200 );
       test.true( _.error.is( err ) );
       test.identical( arg, undefined );
-      test.true( _.strHas( err.originalMessage, 'Attempts is exhausted, made 3 attempts' ) );
+      test.true( _.strHas( err.originalMessage, 'Attempts exhausted, made 3 attempts' ) );
     };
     return test.shouldThrowErrorAsync( () =>
     {
