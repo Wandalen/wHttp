@@ -11,6 +11,7 @@ about:
     - wTools
   contributors:
     - Kostiantyn Wandalen <wanalen@01.school>
+    - Dmytro Kryvoruchko <dm.vict.kr@gmail.com>
   interpreters:
     - njs >= 10.0.0
     - chrome >= 60.0.0
@@ -283,13 +284,13 @@ submodule:
     path: 'npm:///wConsequence'
     enabled: 0
   wRemote:
-    path: 'npm:///wRemote'
+    path: 'npm:///wremote'
     enabled: 0
   needle:
-    path: 'npm:///needle#2.5.0'
+    path: 'npm:///needle#3.0.0'
     enabled: 0
   eslint:
-    path: 'npm:///eslint#7.1.0'
+    path: 'npm:///eslint!7.32.0'
     enabled: 0
     criterion:
       development: 1

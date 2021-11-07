@@ -260,6 +260,7 @@ function retrieve( o )
       open_timeout : o.openTimeOut,
       response_timeout : o.responseTimeOut,
       read_timeout : o.readTimeOut,
+      stream_length : 0,
     };
 
     needle.get( op.uri, o2, ( err, response ) =>
