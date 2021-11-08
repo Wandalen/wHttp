@@ -3,8 +3,8 @@ root:
   - wHttp.out
 consistency:
   ../will.yml: &ref_0
-    hash: 4c5cc2f6b65dab372cbaf6bc0dee7021
-    size: 6291
+    hash: e2da67002194bb81c573b34aab4f9f9c
+    size: 6340
 module:
   wHttp.out:
     about:
@@ -21,6 +21,7 @@ module:
         - wTools
       contributors: &ref_2
         - Kostiantyn Wandalen <wanalen@01.school>
+        - Dmytro Kryvoruchko <dm.vict.kr@gmail.com>
       interpreters: &ref_3
         - njs >= 10.0.0
         - chrome >= 60.0.0
@@ -174,15 +175,15 @@ module:
         autoExporting: 0
         enabled: 0
       wRemote:
-        path: 'npm:///wRemote'
+        path: 'npm:///wremote'
         autoExporting: 0
         enabled: 0
       needle:
-        path: 'npm:///needle#2.5.0'
+        path: 'npm:///needle#3.0.0'
         autoExporting: 0
         enabled: 0
       eslint:
-        path: 'npm:///eslint#7.1.0'
+        path: 'npm:///eslint!7.32.0'
         autoExporting: 0
         enabled: 0
         criterion:
@@ -909,15 +910,15 @@ module:
         autoExporting: 0
         enabled: 0
       wRemote:
-        path: 'npm:///wRemote'
+        path: 'npm:///wremote'
         autoExporting: 0
         enabled: 0
       needle:
-        path: 'npm:///needle#2.5.0'
+        path: 'npm:///needle#3.0.0'
         autoExporting: 0
         enabled: 0
       eslint:
-        path: 'npm:///eslint#7.1.0'
+        path: 'npm:///eslint!7.32.0'
         autoExporting: 0
         enabled: 0
         criterion:
@@ -1451,5 +1452,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: 4c5cc2f6b65dab372cbaf6bc0dee7021
-        size: 6291
+        hash: e2da67002194bb81c573b34aab4f9f9c
+        size: 6340

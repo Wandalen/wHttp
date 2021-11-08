@@ -1,13 +1,13 @@
 {
   "name": "whttp",
-  "version": "0.3.127",
+  "version": "0.3.128",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wanalen@01.school>",
   "contributors": [
     "Kostiantyn Wandalen <wanalen@01.school>",
     "Dmytro Kryvoruchko <dm.vict.kr@gmail.com>"
   ],
-"license": "MIT",
+  "license": "MIT",
   "main": "proto/node_modules/whttp",
   "files": [
     "proto/wtools/amid/l1/http",
