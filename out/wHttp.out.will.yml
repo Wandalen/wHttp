@@ -3,8 +3,8 @@ root:
   - wHttp.out
 consistency:
   ../will.yml: &ref_0
-    hash: e2da67002194bb81c573b34aab4f9f9c
-    size: 6340
+    hash: c8f5e4bfa512952f86e6667c6d92d6ce
+    size: 6348
 module:
   wHttp.out:
     about:
@@ -1452,5 +1452,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: e2da67002194bb81c573b34aab4f9f9c
-        size: 6340
+        hash: c8f5e4bfa512952f86e6667c6d92d6ce
+        size: 6348
