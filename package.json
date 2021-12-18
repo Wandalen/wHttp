@@ -1,6 +1,6 @@
 {
   "name": "whttp",
-  "version": "0.3.134",
+  "version": "0.3.135",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wandalen@obox.systems>",
   "contributors": [
@@ -27,13 +27,13 @@
     "url": "https://github.com/Wandalen/wHttp/issues"
   },
   "dependencies": {
-    "wTools": "delta",
-    "wremote": "delta",
-    "wConsequence": "delta",
+    "wTools": "alpha",
+    "wremote": "alpha",
+    "wConsequence": "alpha",
     "needle": "2.5.0"
   },
   "devDependencies": {
-    "wTesting": "delta",
+    "wTesting": "alpha",
     "eslint": "7.32.0"
   },
   "keywords": [
