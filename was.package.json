@@ -30,7 +30,7 @@
     "wTools": "",
     "wremote": "",
     "wConsequence": "",
-    "needle": "2.5.0"
+    "needle": "3.1.0"
   },
   "devDependencies": {
     "wTesting": "",
