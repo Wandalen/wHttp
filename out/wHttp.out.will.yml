@@ -3,7 +3,7 @@ root:
   - wHttp.out
 consistency:
   ../will.yml: &ref_0
-    hash: c8f5e4bfa512952f86e6667c6d92d6ce
+    hash: 2197b4d022e6637b9dfc503c1cb842f7
     size: 6348
 module:
   wHttp.out:
@@ -179,7 +179,7 @@ module:
         autoExporting: 0
         enabled: 0
       needle:
-        path: 'npm:///needle#3.0.0'
+        path: 'npm:///needle!3.1.0'
         autoExporting: 0
         enabled: 0
       eslint:
@@ -914,7 +914,7 @@ module:
         autoExporting: 0
         enabled: 0
       needle:
-        path: 'npm:///needle#3.0.0'
+        path: 'npm:///needle!3.1.0'
         autoExporting: 0
         enabled: 0
       eslint:
@@ -1452,5 +1452,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: c8f5e4bfa512952f86e6667c6d92d6ce
+        hash: 2197b4d022e6637b9dfc503c1cb842f7
         size: 6348

@@ -1,6 +1,6 @@
 {
   "name": "whttp",
-  "version": "0.3.143",
+  "version": "0.3.144",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wandalen@obox.systems>",
   "contributors": [
@@ -30,7 +30,7 @@
     "wTools": "latest",
     "wremote": "latest",
     "wConsequence": "latest",
-    "needle": "2.5.0"
+    "needle": "3.1.0"
   },
   "devDependencies": {
     "wTesting": "latest",
