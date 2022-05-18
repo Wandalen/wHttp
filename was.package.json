@@ -1,6 +1,6 @@
 {
   "name": "whttp",
-  "version": "0.3.144",
+  "version": "0.3.145",
   "description": "Collection of tools to make HTTP requests.",
   "author": "Kostiantyn Wandalen <wandalen@obox.systems>",
   "contributors": [
